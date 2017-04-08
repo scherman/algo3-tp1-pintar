@@ -1,7 +1,7 @@
 #include <iostream>
 #include <list>
 #include <array>
-int BTPintar(int problema[], int desde, int hasta, std::list<int> &rojas, std::list<int> &azules);
+int BTPintar(int problema[], int desde, int hasta, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar);
 int BTPintarMejorado(int problema[], int desde, int hasta, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar, int &minSinPintar);
 
 
@@ -24,22 +24,8 @@ int min3(int a, int b, int c) {
     return std::min(std::min (a,b),c);
 }
 
-
-
-void imprimirSolucion(int longitud, std::list<int> &rojas, std::list<int> &azules) {
-    std::cout << "Solucion " << Contador::valor++ << ": min=" << longitud - (int) rojas.size() - (int) azules.size();
-    std::cout << " | rojas=[ ";
-    for (auto v : rojas)
-        std::cout << v << " ";
-    std::cout << "], azules=[ ";
-    for (auto v : azules) {
-        std::cout << v << " ";
-    }
-    std::cout << "]" << std::endl;
-}
-
-void imprimirSolucion2(int longitud, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar) {
-    std::cout << "Solucion " << Contador::valor++ << ": min=" << longitud - (int) rojas.size() - (int) azules.size();
+void imprimirSolucion(int longitud, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar) {
+    std::cout << "Solucion " << Contador::valor++ << ": SP=" << sinPintar.size();
     std::cout << " | rojas=[ ";
     for (auto v : rojas)
         std::cout << v << " ";
@@ -57,16 +43,17 @@ void imprimirSolucion2(int longitud, std::list<int> &rojas, std::list<int> &azul
 
 
 int main() {
-    int n = 12;
+    int n = 8;
 
 //    int arr[n] = {8,7,6,5,4,3,2,1};
-    int arr[n] = {0,20000000, 5, -111 ,10,15};
-//    int arr[n] = {1,2,3,4,5,6,7,8};
+//    int arr[n] = {0,20000000, 5, -111 ,10,15};
+    int arr[n] = {1,2,3,4,5,6,7,8};
 //    int arr[n] = {0, 7, 1, 2, 2, 1, 5, 0};
 //    int arr[n] = {3, 11, 0, 1 ,3, 5, 2, 4, 1, 0, 9,3};
     std::list<int> rojas1;
     std::list<int> azules1;
-    int res1 = BTPintar(arr, 0, n, rojas1, azules1);
+    std::list<int> sinPintar1;
+    int res1 = BTPintar(arr, 0, n-1, rojas1, azules1, sinPintar1);
     int cantSoluciones1 = Contador::valor;
 
     Contador::valor = 0;
@@ -75,7 +62,7 @@ int main() {
     std::list<int> azules2;
     std::list<int> sinPintar2;
     int minSinPintar2;
-    int res2 = BTPintarMejorado(arr, 0, n, rojas2, azules2, sinPintar2, minSinPintar2);
+    int res2 = BTPintarMejorado(arr, 0, n-1, rojas2, azules2, sinPintar2, minSinPintar2);
     int cantSoluciones2 = Contador::valor;
 
     imprimirResumen(arr, n, res1, res2, cantSoluciones1, cantSoluciones2);
@@ -83,10 +70,10 @@ int main() {
 
 }
 
-int BTPintar(int problema[], int desde, int hasta, std::list<int> &rojas, std::list<int> &azules) {
-    if (desde == hasta) {
-        imprimirSolucion(hasta,rojas,azules);
-        return hasta - (int) rojas.size() - (int) azules.size();
+int BTPintar(int problema[], int desde, int hasta, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar) {
+    if (desde > hasta) {
+        imprimirSolucion(hasta, rojas, azules, sinPintar);
+        return sinPintar.size();
     } else {
         int actual = problema[desde];
 
@@ -94,7 +81,7 @@ int BTPintar(int problema[], int desde, int hasta, std::list<int> &rojas, std::l
         int minIzq = hasta;
         if (rojas.empty() || rojas.back() < actual) {
             rojas.push_back(actual);
-            minIzq = BTPintar(problema, desde + 1, hasta, rojas, azules);
+            minIzq = BTPintar(problema, desde + 1, hasta, rojas, azules, sinPintar);
             rojas.pop_back();
         }
 
@@ -102,22 +89,24 @@ int BTPintar(int problema[], int desde, int hasta, std::list<int> &rojas, std::l
         int minMed = hasta;
         if (azules.empty() || azules.back() > actual) {
             azules.push_back(actual);
-            minMed = BTPintar(problema, desde + 1, hasta, rojas, azules);
+            minMed = BTPintar(problema, desde + 1, hasta, rojas, azules, sinPintar);
             azules.pop_back();
         }
 
         // Llamada al hijo derecho: dejo 'actual' sin pintar
-        int minDer = 0;
-        minDer = BTPintar(problema, desde + 1, hasta, rojas, azules);
-//        std::cout << "Nivel " << desde << ": min(" << minIzq << "," << minMed << "," << minDer << ")=" << min3(minIzq, minMed, minDer) << std::endl;
+        int minDer = hasta;
+        sinPintar.push_back(actual);
+        minDer = BTPintar(problema, desde + 1, hasta, rojas, azules, sinPintar);
+        sinPintar.pop_back();
+
         return min3(minIzq, minMed, minDer);
     }
 }
 
 int BTPintarMejorado(int problema[], int desde, int hasta, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar, int &minSinPintar) {
     if (sinPintar.size() >= minSinPintar) return hasta;
-    if (desde == hasta) {
-        imprimirSolucion2(hasta,rojas,azules, sinPintar);
+    if (desde > hasta) {
+        imprimirSolucion(hasta, rojas, azules, sinPintar);
         if (sinPintar.size() < minSinPintar) minSinPintar = sinPintar.size();
         return sinPintar.size();
     } else {

@@ -3,7 +3,6 @@
 #include <array>
 int BTPintar(int problema[], int desde, int longitud, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar);
 int BTPintarMejorado(int problema[], int desde, int longitud, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar, int &minSinPintar);
-int pintarDinamico(int problema[], int desde, int longitud, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar, int &minSinPintar, int ***calculados);
 int pintarDinamicoBU(int problema[], int hasta);
 
 
@@ -216,139 +215,6 @@ int BTPintarMejorado(int problema[], int desde, int longitud, std::list<int> &ro
     }
 }
 
-
-//int pintarDinamico(int problema[], int desde, int longitud, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar, int &minSinPintar, int ***calculados) {
-//    // print
-//    std::cout << "rojas: [ ";
-//    for (std::list<int>::iterator it=rojas.begin(); it != rojas.end(); ++it) std::cout << *it << " ";
-//    std::cout << "], ";
-//    std::cout << "azules: [ ";
-//    for (std::list<int>::iterator it=azules.begin(); it != azules.end(); ++it) std::cout << *it << " ";
-//    std::cout << "], ";
-//    std::cout << "sp: [ ";
-//    for (std::list<int>::iterator it=sinPintar.begin(); it != sinPintar.end(); ++it) std::cout << *it << " ";
-//    std::cout << "]" << std::endl;
-//
-//
-//    int longSubproblema = longitud - desde;
-////    // Poda
-////    if (sinPintar.size() >= minSinPintar) {
-////        calculados[longSubproblema][rojas.size()][azules.size()] = longitud;
-////        return longitud;
-////    }
-//    if (longSubproblema == 0) {
-//        imprimirSolucion(longitud, rojas, azules, sinPintar);
-////        if (sinPintar.size() < minSinPintar) minSinPintar = sinPintar.size();
-//        calculados[longSubproblema][rojas.size()][azules.size()] = (int) sinPintar.size();
-//        return (int) sinPintar.size();
-//    } else {
-//        // Si lo calcule antes, lo devuelvo
-//        if (calculados[longSubproblema][rojas.size()][azules.size()] != -1) return calculados[longSubproblema][rojas.size()][azules.size()];
-//
-//        int primerElemento = problema[desde];
-//
-//        // Opcion 1: pinto 'primerElemento' de rojo (si rojo sigue siendo decreciente)
-//        int minRamaRojo = longitud;
-//        if (rojas.empty() || rojas.back() < primerElemento) {
-//            rojas.push_back(primerElemento);
-//            minRamaRojo = pintarDinamico(problema, desde + 1, longitud, rojas, azules, sinPintar, minSinPintar, calculados);
-//            rojas.pop_back();
-//        }
-//
-//        // Opcion 2: pinto 'primerElemento' de azul (si azul sigue siendo decreciente)
-//        int minRamaAzul = longitud;
-//        if (azules.empty() || azules.back() > primerElemento) {
-//            azules.push_back(primerElemento);
-//            minRamaAzul = pintarDinamico(problema, desde + 1, longitud, rojas, azules, sinPintar, minSinPintar, calculados);
-//            azules.pop_back();
-//        }
-//
-//        // Opcion 3: dejo 'primerElemento' sin pintar
-//        int minRamaSP = longitud;
-//        sinPintar.push_back(primerElemento);
-//        minRamaSP = pintarDinamico(problema, desde + 1, longitud, rojas, azules, sinPintar, minSinPintar, calculados);
-//        sinPintar.pop_back();
-//
-//        // Guardo lo calculado
-//        calculados[longSubproblema][rojas.size()][azules.size()] = min3(minRamaRojo, minRamaAzul, minRamaSP);
-//        std::cout << "Guardando m[" << desde << "][" << rojas.size() << "][" << azules.size() << "]=" << min3(minRamaRojo, minRamaAzul, minRamaSP) << std::endl;
-//        return min3(minRamaRojo, minRamaAzul, minRamaSP);
-//    }
-//}
-
-
-///*
-// * Si #problema = 5:
-// * CB: #x = 0: (resolví 5 elementos)
-// *          0 1 2 3 4 5
-// *        0 5 4 3 2 1 0
-// *        1 4 3 2 1 0 -
-// *        2 3 2 1 0 - -
-// *        3 2 1 0 - - -
-// *        4 1 0 - - - -
-// *        5 0 - - - - -
-// * si #x = 1: (resolví 4 elementos)
-// *          0     ...                 #r                           #r+1 .. 5
-// *        0
-// *        ...
-// *        #a              min(f(n1, n2, sinUno(x),r,a)+1)      n1=f(sinUno(x),masUno(r),a)
-// *        #a+1              n2=f(sinUno(x),r,masUno(a))
-// *        ...
-// *        5
-//  * si #x = 5: (resolví 0 elementos)
-// *                        #a=0                               1
-// *        #r=0   min(n1, n2, f(sinUno(x),r,a)+1)      n1=f(sinUno(x),masUno(r),a)
-//          1      n2=f(sinUno(x),r,masUno(a))
-// *        ...
-// *        5
-// *
-// *obs: para calcular m[i,j] necesio tener m[i+1, j], m[i, j+1]
-// *     para calcular m[i-1, j+1] necesito tener m[i, j+1], y m[i-1, j+2]
-// *     => Estoy calculando 2 veces m[i, j+1]!
-//*/
-////f(x + {m}, r, a) = min(f(x, r, a)+1,
-////                       f(x, r + {m}, a) si ultimo(r) < m o vacio(r), |x| sino,
-////                       f(x, r, a + {m}) si ultimo(r) > m o vacio(a), |x| sino)
-////f(vacio, r, a) = |r| + |a|
-//int pintarDinamico(int problema[], int desde, int longitud, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar, int &minSinPintar, int ***calculados) {
-//    if (desde > longitud) {
-//        imprimirSolucion(longitud, rojas, azules, sinPintar);
-//        return sinPintar.size();
-//    } else {
-//        // Si lo calcule antes, lo devuelvo
-////        if (calculados[desde][rojas.size()][azules.size()] != -1) return calculados[desde][rojas.size()][azules.size()];
-//
-//        int actual = problema[desde];
-//
-//        // Llamada al hijo izquierdo (si es válido): pinto 'actual' de rojo
-//        int minIzq = longitud;
-//        if (rojas.empty() || rojas.back() < actual) {
-//            rojas.push_back(actual);
-//            minIzq = pintarDinamico(problema, desde + 1, longitud, rojas, azules, sinPintar, minSinPintar, calculados);
-//            rojas.pop_back();
-//        }
-//
-//        // Llamada al hijo medio (si es válido): pinto 'actual' de azul
-//        int minMed = longitud;
-//        if (azules.empty() || azules.back() > actual) {
-//            azules.push_back(actual);
-//            minMed = pintarDinamico(problema, desde + 1, longitud, rojas, azules, sinPintar, minSinPintar, calculados);
-//            azules.pop_back();
-//        }
-//
-//        // Llamada al hijo derecho: dejo 'actual' sin pintar
-//        int minDer = longitud;
-//        sinPintar.push_back(actual);
-//        minDer = pintarDinamico(problema, desde + 1, longitud, rojas, azules, sinPintar, minSinPintar, calculados);
-//        sinPintar.pop_back();
-//
-//        // Guardo lo calculado
-////        std::cout << "Guardando m[" << desde << "][" << rojas.size() << "][" << azules.size() << "]=" << min3(minIzq, minMed, minDer) << std::endl;
-////        calculados[desde][rojas.size()][azules.size()] = min3(minIzq, minMed, minDer);
-//        return  min3(minIzq, minMed, minDer);
-//    }
-//}
-
 int pintarDinamicoBU(int problema[], int longitud) {
 
     int ***m= new int**[longitud+1];
@@ -372,7 +238,7 @@ int pintarDinamicoBU(int problema[], int longitud) {
      */
     for (int i = 1; i < longitud + 1; ++i) {
 //        std::cout << "Nivel " << i << std::endl;
-        /* Completo anteriores e invalidos y lo restante en -1:
+        /* Completo anteriormente calculados e invalido :
          *       0   1  i-1   i   n
          * 0     x   x   x   -1  -1
          * 1     x   x   x   -1  -1
@@ -380,13 +246,9 @@ int pintarDinamicoBU(int problema[], int longitud) {
          * i    -1  -1  -1    x  -1
          * n    -1  -1  -1   -1  -1
          */
-        for (int r = 0; r < longitud + 1; ++r) {
-            for (int a = 0; a < longitud + 1; ++a) {
-                if (r < i && a < i) {
-                    m[i][r][a] = m[i-1][r][a] + 1 > longitud ? longitud : m[i-1][r][a] + 1;
-                } else {
-                    m[i][r][a] = -1;
-                }
+        for (int r = 0; r < i; ++r) {
+            for (int a = 0; a < i; ++a) {
+                m[i][r][a] = std::min(m[i-1][r][a] + 1, longitud);
             }
         }
         m[i][i][i] = longitud;
@@ -446,3 +308,62 @@ int pintarDinamicoBU(int problema[], int longitud) {
     }
     return min;
 }
+
+//int pintarDinamico(int problema[], int desde, int longitud, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar, int &minSinPintar, int ***calculados) {
+//    // print
+//    std::cout << "rojas: [ ";
+//    for (std::list<int>::iterator it=rojas.begin(); it != rojas.end(); ++it) std::cout << *it << " ";
+//    std::cout << "], ";
+//    std::cout << "azules: [ ";
+//    for (std::list<int>::iterator it=azules.begin(); it != azules.end(); ++it) std::cout << *it << " ";
+//    std::cout << "], ";
+//    std::cout << "sp: [ ";
+//    for (std::list<int>::iterator it=sinPintar.begin(); it != sinPintar.end(); ++it) std::cout << *it << " ";
+//    std::cout << "]" << std::endl;
+//
+//
+//    int longSubproblema = longitud - desde;
+////    // Poda
+////    if (sinPintar.size() >= minSinPintar) {
+////        calculados[longSubproblema][rojas.size()][azules.size()] = longitud;
+////        return longitud;
+////    }
+//    if (longSubproblema == 0) {
+//        imprimirSolucion(longitud, rojas, azules, sinPintar);
+////        if (sinPintar.size() < minSinPintar) minSinPintar = sinPintar.size();
+//        calculados[longSubproblema][rojas.size()][azules.size()] = (int) sinPintar.size();
+//        return (int) sinPintar.size();
+//    } else {
+//        // Si lo calcule antes, lo devuelvo
+//        if (calculados[longSubproblema][rojas.size()][azules.size()] != -1) return calculados[longSubproblema][rojas.size()][azules.size()];
+//
+//        int primerElemento = problema[desde];
+//
+//        // Opcion 1: pinto 'primerElemento' de rojo (si rojo sigue siendo decreciente)
+//        int minRamaRojo = longitud;
+//        if (rojas.empty() || rojas.back() < primerElemento) {
+//            rojas.push_back(primerElemento);
+//            minRamaRojo = pintarDinamico(problema, desde + 1, longitud, rojas, azules, sinPintar, minSinPintar, calculados);
+//            rojas.pop_back();
+//        }
+//
+//        // Opcion 2: pinto 'primerElemento' de azul (si azul sigue siendo decreciente)
+//        int minRamaAzul = longitud;
+//        if (azules.empty() || azules.back() > primerElemento) {
+//            azules.push_back(primerElemento);
+//            minRamaAzul = pintarDinamico(problema, desde + 1, longitud, rojas, azules, sinPintar, minSinPintar, calculados);
+//            azules.pop_back();
+//        }
+//
+//        // Opcion 3: dejo 'primerElemento' sin pintar
+//        int minRamaSP = longitud;
+//        sinPintar.push_back(primerElemento);
+//        minRamaSP = pintarDinamico(problema, desde + 1, longitud, rojas, azules, sinPintar, minSinPintar, calculados);
+//        sinPintar.pop_back();
+//
+//        // Guardo lo calculado
+//        calculados[longSubproblema][rojas.size()][azules.size()] = min3(minRamaRojo, minRamaAzul, minRamaSP);
+//        std::cout << "Guardando m[" << desde << "][" << rojas.size() << "][" << azules.size() << "]=" << min3(minRamaRojo, minRamaAzul, minRamaSP) << std::endl;
+//        return min3(minRamaRojo, minRamaAzul, minRamaSP);
+//    }
+//}

@@ -4,7 +4,8 @@
 int BTPintar(int problema[], int desde, int longitud, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar);
 int BTPintarMejorado(int problema[], int desde, int longitud, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar, int &minSinPintar);
 int pintarDinamicoBU(int problema[], int hasta);
-
+int pintarDinamicoTD(int problema[], int longitud);
+int pintarDinamicoTDEnPosicion(int longOriginal, int longSubproblema, int ultimoRojo, int ultimoAzul, int ***m);
 
 class Contador
 {
@@ -307,6 +308,53 @@ int pintarDinamicoBU(int problema[], int longitud) {
         }
     }
     return min;
+}
+
+int pintarDinamicoTDEnPosicion(int longOriginal, int longSubproblema, int ultimoRojo, int ultimoAzul, int ***m){
+    if (m[longSubproblema][ultimoRojo][ultimoAzul] != -1) return m[longSubproblema][ultimoRojo][ultimoAzul];
+    if (longSubproblema == 0) {
+        // Caso base: f(0, 0, 0) = 0
+        return 0;
+    } else {
+        int min = longOriginal;
+        if (r == a) {
+            // Caso 1 (pinté de rojo y de azul al último): es inválido, entonces devuelvo el máximo.  
+            min = longOriginal;
+        } else if (r == i && a < i) {
+            // Caso 2 (pinté de rojo al último): me fijo cual es el último rojo anterior al cual lo puedo enganchar y me da el óptimo.
+            for (int k=0; k < i; k++) {
+                int minConRojoActual = f(longOriginal, longSubproblema - 1, k, ultimoAzul, m);
+                min = std::min(min, minConRojoActual);
+            }
+        } else if (r < i && a == i) {
+            // Caso 3 (pinté de azul al último): me fijo cual es el último azul anterior al cual lo puedo enganchar y me da el óptimo.
+            for (int k=0; k < i; k++) {
+                int minConAzulActual = f(longOriginal, longSubproblema - 1, ultimoRojo, k, m);
+                min = std::min(min, minConAzulActual);
+            }
+        } else if (r < i && a < i) {
+            // Caso 4 (no pinté el último elemento): devuelvo el resultado óptimo sin ese elemnto + 1 (por el nuevo que no pinté)
+            min = f(longOriginal, longSubproblema - 1, ultimoRojo, ultimoAzul, m) + 1;
+        }
+        
+        // Guardo resultado calculado para esta posicion
+        m[longSubproblema][ultimoRojo][ultimoAzul] = min;
+        
+        return m[longSubproblema][ultimoRojo][ultimoAzul];
+    }
+}
+
+int pintarDinamicoTD(int problema[], int longitud) {
+    int ***calculados = new int**[longitud+1];
+    for(int i = 0; i < longitud+1; ++i) {
+    calculados[i] = new int*[longitud+1];
+        for(int r = 0; r < longitud+1; ++r) {
+        calculados[i][r] = new int[n+1];
+            for(int a = 0; a < longitud+1; ++a) {
+                calculados[i][r][a] = -1;
+            }
+        }
+    }
 }
 
 //int pintarDinamico(int problema[], int desde, int longitud, std::list<int> &rojas, std::list<int> &azules, std::list<int> &sinPintar, int &minSinPintar, int ***calculados) {

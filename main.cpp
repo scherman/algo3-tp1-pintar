@@ -200,8 +200,10 @@ int main() {
     int cantTests = 0;
     for(std::vector<TestPintar>::iterator it = tests.begin(); it != tests.end(); ++it) {
         TestPintar testActual = *it;
-        int rta = pintarDinamicoTDEnPosicion2(testActual.secu.data(), testActual.secu.size());
-        assert(rta == testActual.rta);
+
+        int rtaTD = pintarDinamicoTDEnPosicion2(testActual.secu.data(), testActual.secu.size());
+        int rtaBU = pintarDinamicoBU2(testActual.secu.data(), testActual.secu.size());
+        assert(rtaTD == testActual.rta && rtaTD == testActual.rta);
         cantTests++;
     }
     std::cout << "Se corrieron " <<  cantTests << " tests satisfactoriamente" << std::endl;

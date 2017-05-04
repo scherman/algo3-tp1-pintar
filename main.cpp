@@ -145,7 +145,7 @@ void correrTests() {
 }
 
 void medirTiempos() {
-    Algo algoritmo = TopDown;
+    Algo algoritmo = BTConPoda;
     int cantInstancias = 5;
 
     std::stringstream ss;
@@ -153,7 +153,7 @@ void medirTiempos() {
     std::ofstream a_file (ss.str());
 
     a_file << "length, ms_distribucion_uniforme, ms_creciente, ms_decreciente, ms_constante " << std::endl;
-    for (int j = 0; j < 150; ++j) {
+    for (int j = 0; j < 50; ++j) {
         int n = j;
         int tTotalUniforme = 0;
         int tTotalCreciente = 0;

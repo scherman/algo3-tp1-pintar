@@ -6,8 +6,14 @@
 #include <fstream>
 #include <chrono>
 #include <assert.h>
+#include <map>
+#include <sstream>
+#include <string>
+// SACAR
+
 
 enum Algo { BT, BTConPoda, TopDown, BottomUp};
+static std::map<Algo, std::string> stringAlgoValues = {{BT, "bt"}, {BTConPoda, "bt+"}, {TopDown, "td"}, {BottomUp, "bu"}};
 
 int pintar(int problema[], int longitud, Algo algoritmo);
 int BTPintar(int problema[], int longitud,  int longSubproblema, int ultimoRojo, int ultimoAzul);
@@ -139,12 +145,14 @@ void correrTests() {
 }
 
 void medirTiempos() {
-    char str[10];
-
-    std::ofstream a_file ( "/home/jscherman/ClionProjects/algo3-tp1-pintar/example.txt" );
-    a_file<<"length, ms_distribucion_uniforme, ms_creciente, ms_decreciente, ms_constante \n";
-
+    Algo algoritmo = TopDown;
     int cantInstancias = 5;
+
+    std::stringstream ss;
+    ss <<  "/home/jscherman/ClionProjects/algo3-tp1-pintar/tiempos-" << stringAlgoValues.at(algoritmo) << ".csv";
+    std::ofstream a_file (ss.str());
+
+    a_file << "length, ms_distribucion_uniforme, ms_creciente, ms_decreciente, ms_constante " << std::endl;
     for (int j = 0; j < 150; ++j) {
         int n = j;
         int tTotalUniforme = 0;
@@ -157,7 +165,7 @@ void medirTiempos() {
 
             // Test uniforme
             auto tp1i = std::chrono::high_resolution_clock::now();
-            int res = pintar(p, n, TopDown);
+            int res = pintar(p, n, algoritmo);
             auto tp1f = std::chrono::high_resolution_clock::now();
             int tTotalActualUniforme = std::chrono::duration_cast<std::chrono::milliseconds>(tp1f-tp1i).count();
             tTotalUniforme += tTotalActualUniforme;
@@ -165,7 +173,7 @@ void medirTiempos() {
             // Test creciente
             int *p2 = generarInstanciaDeNElementos(n, 1);
             auto tp2i = std::chrono::high_resolution_clock::now();
-            int res2 = pintar(p2, n, TopDown);
+            int res2 = pintar(p2, n, algoritmo);
             auto tp2f = std::chrono::high_resolution_clock::now();
             int tTotalActualCreciente = std::chrono::duration_cast<std::chrono::milliseconds>(tp2f-tp2i).count();
             tTotalCreciente += tTotalActualCreciente;
@@ -173,7 +181,7 @@ void medirTiempos() {
             // Test decreciente
             int *p3 = generarInstanciaDeNElementos(n, 2);
             auto tp3i = std::chrono::high_resolution_clock::now();
-            int res3 = pintar(p3, n, TopDown);
+            int res3 = pintar(p3, n, algoritmo);
             auto tp3f = std::chrono::high_resolution_clock::now();
             int tTotalActualDecreciente = std::chrono::duration_cast<std::chrono::milliseconds>(tp3f-tp3i).count();
             tTotalDecreciente += tTotalActualDecreciente;
@@ -181,7 +189,7 @@ void medirTiempos() {
             // Test constante
             int *p4 = generarInstanciaDeNElementos(n, 3);
             auto tp4i = std::chrono::high_resolution_clock::now();
-            int res4 = pintar(p4, n, TopDown);
+            int res4 = pintar(p4, n, algoritmo);
             auto tp4f = std::chrono::high_resolution_clock::now();
             int tTotalActualConstante = std::chrono::duration_cast<std::chrono::milliseconds>(tp4f-tp4i).count();
             tTotalConstante += tTotalActualConstante;
@@ -190,14 +198,16 @@ void medirTiempos() {
         tTotalCreciente = tTotalCreciente / cantInstancias;
         tTotalDecreciente = tTotalDecreciente / cantInstancias;
         tTotalConstante = tTotalConstante / cantInstancias;
-        std::cout << n << ", " << tTotalUniforme << ", " << tTotalCreciente << ", " << tTotalDecreciente << ", " << tTotalConstante << "\n" ;
-        a_file << n << ", " << tTotalUniforme << ", " << tTotalCreciente << ", " << tTotalDecreciente << ", " << tTotalConstante << "\n";
+        std::cout << n << ", " << tTotalUniforme << ", " << tTotalCreciente << ", " << tTotalDecreciente << ", " << tTotalConstante << std::endl ;
+        a_file << n << ", " << tTotalUniforme << ", " << tTotalCreciente << ", " << tTotalDecreciente << ", " << tTotalConstante << std::endl;
     }
     a_file.close();
+    std::cout << "Listo!" << std::endl;
 }
 
 int main() {
-    correrTests();
+//    correrTests();
+    medirTiempos();
     return 0;
 }
 

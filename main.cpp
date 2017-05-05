@@ -13,11 +13,13 @@
 
 
 enum Algo { BT, BTConPoda, TopDown, BottomUp};
+enum TipoSucesion {Random, Creciente, Decreciente, Constante};
 static std::map<Algo, std::string> stringAlgoValues = {{BT, "bt"}, {BTConPoda, "bt+"}, {TopDown, "td"}, {BottomUp, "bu"}};
+static std::map<TipoSucesion, std::string> stringSucValues = {{Random, "random"}, {Creciente, "crec"}, {Decreciente, "decrec"}, {Constante, "const"}};
 
 int pintar(int problema[], int longitud, Algo algoritmo);
 int BTPintar(int problema[], int longitud,  int longSubproblema, int ultimoRojo, int ultimoAzul);
-int BTPintarConPoda(int *problema, int longitud, int longSubproblema, int ultimoRojo, int ultimoAzul, int sp, int minSP);
+int BTPintarConPoda(int *problema, int longitud, int longSubproblema, int ultimoRojo, int ultimoAzul, int sp, int &minSP);
 int pintarDinamicoBU(int *problema, int longitud);
 int pintarDinamicoTD(int *problema, int longitud, int longSubproblema, int ultimoRojo, int ultimoAzul,
                      int ***calculados);
@@ -74,35 +76,35 @@ int pintar(int A[], int n, Algo algoritmo) {
  *       2 => instancia decreciente
  *       3 => instancia constante
  */
-int * generarInstanciaDeNElementos(const int n, int criterio) {
+std::vector<int> * generarInstanciaDeNElementos(const int n, TipoSucesion criterio) {
     std::vector < int > *p = new std::vector<int>();
 
     std::random_device r;
     std::default_random_engine e1(r());
     std::uniform_int_distribution<int> uniform_dist(1, 500);
 
-    if (criterio == 0) { // Uniforme
+    if (criterio == Random) {
         for (int i=0; i < n; ++i) {
             p->push_back(uniform_dist(e1));
         }
-    } else if (criterio == 1) { // Creciente
+    } else if (criterio == Creciente) {
         for (int i=0; i < n; ++i) {
             p->push_back(uniform_dist(e1));
         }
         std::sort(std::begin(*p), std::end(*p));
-    } else if (criterio == 2) { // Decreciente
+    } else if (criterio == Decreciente) {
         for (int i=0; i < n; ++i) {
             p->push_back(uniform_dist(e1));
         }
         std::sort(std::begin(*p), std::end(*p), [](const int a, const int b) {return a > b; });
-    } else if (criterio == 3) { // Constante
+    } else if (criterio == Constante) {
         int num = uniform_dist(e1);
         for (int i=0; i < n; ++i) {
             p->push_back(num);
         }
     }
 
-    return  p->data();
+    return  p;
 }
 
 void correrTests() {
@@ -144,60 +146,61 @@ void correrTests() {
     std::cout << "Se corrieron " <<  cantTests << " tests satisfactoriamente" << std::endl;
 }
 
-void medirTiempos() {
-    Algo algoritmo = BTConPoda;
-    int cantInstancias = 5;
-
+void medirTiemposEnAlgoritmo(Algo algoritmo, int cantInstanciasPorLongitud, int maxLong) {
     std::stringstream ss;
     ss <<  "/home/jscherman/ClionProjects/algo3-tp1-pintar/tiempos-" << stringAlgoValues.at(algoritmo) << ".csv";
     std::ofstream a_file (ss.str());
 
-    a_file << "length, ms_distribucion_uniforme, ms_creciente, ms_decreciente, ms_constante " << std::endl;
-    for (int j = 0; j < 50; ++j) {
+    a_file << "length, mcs_distribucion_uniforme, mcs_creciente, mcs_decreciente, mcs_constante " << std::endl;
+    for (int j = 1; j <= maxLong; ++j) {
         int n = j;
         int tTotalUniforme = 0;
         int tTotalCreciente = 0;
         int tTotalDecreciente = 0;
         int tTotalConstante = 0;
 
-        for (int i = 0; i < cantInstancias; ++i) {
-            int *p = generarInstanciaDeNElementos(n, 0);
+        for (int i = 0; i < cantInstanciasPorLongitud; ++i) {
 
             // Test uniforme
+            std::vector<int> *p = generarInstanciaDeNElementos(n, Random);
             auto tp1i = std::chrono::high_resolution_clock::now();
-            int res = pintar(p, n, algoritmo);
+            int res = pintar(p->data(), n, algoritmo);
             auto tp1f = std::chrono::high_resolution_clock::now();
-            int tTotalActualUniforme = std::chrono::duration_cast<std::chrono::milliseconds>(tp1f-tp1i).count();
+            int tTotalActualUniforme = std::chrono::duration_cast<std::chrono::microseconds>(tp1f-tp1i).count();
             tTotalUniforme += tTotalActualUniforme;
+            delete p;
 
             // Test creciente
-            int *p2 = generarInstanciaDeNElementos(n, 1);
+            std::vector<int> *p2 = generarInstanciaDeNElementos(n, Creciente);
             auto tp2i = std::chrono::high_resolution_clock::now();
-            int res2 = pintar(p2, n, algoritmo);
+            int res2 = pintar(p2->data(), n, algoritmo);
             auto tp2f = std::chrono::high_resolution_clock::now();
-            int tTotalActualCreciente = std::chrono::duration_cast<std::chrono::milliseconds>(tp2f-tp2i).count();
+            int tTotalActualCreciente = std::chrono::duration_cast<std::chrono::microseconds>(tp2f-tp2i).count();
             tTotalCreciente += tTotalActualCreciente;
+            delete p2;
 
             // Test decreciente
-            int *p3 = generarInstanciaDeNElementos(n, 2);
+            std::vector<int> *p3 = generarInstanciaDeNElementos(n, Decreciente);
             auto tp3i = std::chrono::high_resolution_clock::now();
-            int res3 = pintar(p3, n, algoritmo);
+            int res3 = pintar(p3->data(), n, algoritmo);
             auto tp3f = std::chrono::high_resolution_clock::now();
-            int tTotalActualDecreciente = std::chrono::duration_cast<std::chrono::milliseconds>(tp3f-tp3i).count();
+            int tTotalActualDecreciente = std::chrono::duration_cast<std::chrono::microseconds>(tp3f-tp3i).count();
             tTotalDecreciente += tTotalActualDecreciente;
+            delete p3;
 
             // Test constante
-            int *p4 = generarInstanciaDeNElementos(n, 3);
+            std::vector<int> *p4 = generarInstanciaDeNElementos(n, Constante);
             auto tp4i = std::chrono::high_resolution_clock::now();
-            int res4 = pintar(p4, n, algoritmo);
+            int res4 = pintar(p4->data(), n, algoritmo);
             auto tp4f = std::chrono::high_resolution_clock::now();
-            int tTotalActualConstante = std::chrono::duration_cast<std::chrono::milliseconds>(tp4f-tp4i).count();
+            int tTotalActualConstante = std::chrono::duration_cast<std::chrono::microseconds>(tp4f-tp4i).count();
             tTotalConstante += tTotalActualConstante;
+            delete p4;
         }
-        tTotalUniforme = tTotalUniforme / cantInstancias;
-        tTotalCreciente = tTotalCreciente / cantInstancias;
-        tTotalDecreciente = tTotalDecreciente / cantInstancias;
-        tTotalConstante = tTotalConstante / cantInstancias;
+        tTotalUniforme = tTotalUniforme / cantInstanciasPorLongitud;
+        tTotalCreciente = tTotalCreciente / cantInstanciasPorLongitud;
+        tTotalDecreciente = tTotalDecreciente / cantInstanciasPorLongitud;
+        tTotalConstante = tTotalConstante / cantInstanciasPorLongitud;
         std::cout << n << ", " << tTotalUniforme << ", " << tTotalCreciente << ", " << tTotalDecreciente << ", " << tTotalConstante << std::endl ;
         a_file << n << ", " << tTotalUniforme << ", " << tTotalCreciente << ", " << tTotalDecreciente << ", " << tTotalConstante << std::endl;
     }
@@ -205,9 +208,78 @@ void medirTiempos() {
     std::cout << "Listo!" << std::endl;
 }
 
+void medirTiemposEntreAlgoritmos(TipoSucesion criterio, int cantInstanciasPorLongitud, int maxLong){
+    std::stringstream ss;
+    ss <<  "/home/jscherman/ClionProjects/algo3-tp1-pintar/tiempos-comp-" << stringSucValues.at(criterio) << ".csv";
+    std::ofstream a_file (ss.str());
+
+    a_file << "length, mcs_bt, mcs_bt+, mcs_td, mcs_bu" << std::endl;
+    for (int j = 1; j <= maxLong; ++j) {
+        int n = j;
+        int tTotalBT = 0;
+        int tTotalBTConPoda = 0;
+        int tTotalTD = 0;
+        int tTotalBU = 0;
+
+        for (int i = 0; i < cantInstanciasPorLongitud; ++i) {
+            std::vector<int> *A = generarInstanciaDeNElementos(n, criterio);
+
+            // Test BT
+            auto tp1i = std::chrono::high_resolution_clock::now();
+            int res = pintar(A->data(), n, BT);
+            auto tp1f = std::chrono::high_resolution_clock::now();
+            auto tActualBT = std::chrono::duration_cast<std::chrono::microseconds>(tp1f-tp1i).count();
+            tTotalBT += tActualBT;
+
+            // Test BT+
+            auto tp2i = std::chrono::high_resolution_clock::now();
+            int res2 = pintar(A->data(), n, BTConPoda);
+            auto tp2f = std::chrono::high_resolution_clock::now();
+            auto tActualBTConPoda = std::chrono::duration_cast<std::chrono::microseconds>(tp2f-tp2i).count();
+            tTotalBTConPoda += tActualBTConPoda;
+
+            // Test TD
+            auto tp3i = std::chrono::high_resolution_clock::now();
+            int res3 = pintar(A->data(), n, TopDown);
+            auto tp3f = std::chrono::high_resolution_clock::now();
+            auto tActualTD = std::chrono::duration_cast<std::chrono::microseconds>(tp3f-tp3i).count();
+            tTotalTD += tActualTD;
+
+            // Test BU
+            auto tp4i = std::chrono::high_resolution_clock::now();
+            int res4 = pintar(A->data(), n, BottomUp);
+            auto tp4f = std::chrono::high_resolution_clock::now();
+            auto tActualBU = std::chrono::duration_cast<std::chrono::microseconds>(tp4f-tp4i).count();
+            tTotalBU += tActualBU;
+
+            delete A;
+        }
+        tTotalBT = tTotalBT / cantInstanciasPorLongitud;
+        tTotalBTConPoda = tTotalBTConPoda / cantInstanciasPorLongitud;
+        tTotalTD = tTotalTD / cantInstanciasPorLongitud;
+        tTotalBU = tTotalBU / cantInstanciasPorLongitud;
+        std::cout << n << ", " << tTotalBT << ", " << tTotalBTConPoda << ", " << tTotalTD << ", " << tTotalBU << std::endl ;
+        a_file << n << ", " << tTotalBT << ", " << tTotalBTConPoda << ", " << tTotalTD << ", " << tTotalBU << std::endl;
+    }
+    a_file.close();
+    std::cout << "Listo!" << std::endl;
+}
+
 int main() {
-//    correrTests();
-    medirTiempos();
+    correrTests();
+    int cantInstanciasPorLongitud = 5;
+    int maxLongBT = 23;
+    int maxLongDin = 125;
+
+//    medirTiemposEnAlgoritmo(BT, cantInstanciasPorLongitud, maxLongBT);
+//    medirTiemposEnAlgoritmo(BTConPoda, cantInstanciasPorLongitud, maxLongBT);
+//    medirTiemposEnAlgoritmo(TopDown, cantInstanciasPorLongitud, maxLongDin);
+//    medirTiemposEnAlgoritmo(BottomUp, cantInstanciasPorLongitud, maxLongDin);
+
+//    medirTiemposEntreAlgoritmos(Random, cantInstanciasPorLongitud, maxLongBT);
+//    medirTiemposEntreAlgoritmos(Creciente, cantInstanciasPorLongitud, maxLongBT);
+//    medirTiemposEntreAlgoritmos(Decreciente, cantInstanciasPorLongitud, maxLongBT);
+    medirTiemposEntreAlgoritmos(Constante, cantInstanciasPorLongitud, maxLongBT);
     return 0;
 }
 
@@ -219,13 +291,13 @@ int BTPintar(int A[], int n, int i, int r, int a) {
 
         // Llamada al hijo izquierdo (si es válido): pinto 'ultimoElem' de rojo
         int minRamaR = n;
-        if (r == 0 || A[r-1] < ultimoElem) {
+        if (r == 0 || ultimoElem < A[r-1]) {
             minRamaR = BTPintar(A, n, i - 1, i, a);
         }
 
         // Llamada al hijo medio (si es válido): pinto 'ultimoElem' de azul
         int minRamaA = n;
-        if (a == 0 || A[a-1] > ultimoElem) {
+        if (a == 0 || ultimoElem > A[a-1]) {
             minRamaA = BTPintar(A, n, i - 1, r, i);
         }
 
@@ -236,7 +308,7 @@ int BTPintar(int A[], int n, int i, int r, int a) {
     }
 }
 
-int BTPintarConPoda(int *A, int n, int i, int r, int a, int sp, int minSP) {
+int BTPintarConPoda(int *A, int n, int i, int r, int a, int sp, int &minSP) {
     if (minSP <= sp) return n;
     if (i == 0) {
         if (sp < minSP) minSP = sp;
@@ -246,13 +318,13 @@ int BTPintarConPoda(int *A, int n, int i, int r, int a, int sp, int minSP) {
 
         // Llamada al hijo izquierdo (si es válido): pinto 'ultimoElem' de rojo
         int minRamaR = n;
-        if (r == 0 || A[r-1] < ultimoElem) {
+        if (r == 0 || ultimoElem < A[r-1]) {
             minRamaR = BTPintarConPoda(A, n , i - 1, i, a, sp, minSP);
         }
 
         // Llamada al hijo medio (si es válido): pinto 'ultimoElem' de azul
         int minRamaA = n;
-        if (a == 0 || A[a-1] > ultimoElem) {
+        if (a == 0 || ultimoElem > A[a-1]) {
             minRamaA = BTPintarConPoda(A, n, i - 1, r, i, sp, minSP);
         }
 
@@ -283,13 +355,13 @@ int pintarDinamicoTD(int *A, int n, int i, int r, int a, int ***m) {
 
         // Llamada al hijo izquierdo (si es válido): pinto 'ultimoElem' de rojo
         int minRamaR = n;
-        if (r == 0 || A[r-1] < ultimoElem) {
+        if (r == 0 || ultimoElem < A[r-1]) {
             minRamaR = pintarDinamicoTD(A, n, i - 1, i, a, m);
         }
 
         // Llamada al hijo medio (si es válido): pinto 'ultimoElem' de azul
         int minRamaA = n;
-        if (a == 0 || A[a-1] > ultimoElem) {
+        if (a == 0 || ultimoElem > A[a-1]) {
             minRamaA = pintarDinamicoTD(A, n, i - 1, r, i, m);
         }
 
@@ -325,11 +397,11 @@ int pintarDinamicoBU(int *A, int n) {
 
     // Completo inductivamente
     for (int i = 1; i < n + 1; ++i) {
-        int primerElem = A[i-1];
+        int ultimoElem = A[i-1];
         for (int a = 0; a < n + 1; ++a) {
             for (int r = 0; r < n + 1; ++r) {
-                    int minRamaR = r == 0 || A[r-1] < primerElem ? m[i-1][i][a] : n;
-                    int minRamaA = a == 0 || A[a-1] > primerElem ? m[i-1][r][i] : n;
+                    int minRamaR = r == 0 || ultimoElem < A[r-1] ? m[i-1][i][a] : n;
+                    int minRamaA = a == 0 || ultimoElem > A[a-1] ? m[i-1][r][i] : n;
                     int minRamaSP = m[i-1][r][a] + 1;
                     m[i][r][a] = min3(minRamaR, minRamaA, minRamaSP);
             }

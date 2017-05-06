@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/main.cpp" line="407" />
+    <bookmark url="file://$PROJECT_DIR$/main.cpp" line="400" />
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" assignedExecutableTargets="true" buildAllGenerated="true">
     <generated>
@@ -20,7 +20,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tiempos-bt+.csv" afterPath="$PROJECT_DIR$/tiempos-bt+.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tiempos-bt.csv" afterPath="$PROJECT_DIR$/tiempos-bt.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tiempos-bu.csv" afterPath="$PROJECT_DIR$/tiempos-bu.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tiempos-td.csv" afterPath="$PROJECT_DIR$/tiempos-td.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tiempos-comp-const.csv" afterPath="$PROJECT_DIR$/tiempos-comp-const.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tiempos-comp-crec.csv" afterPath="$PROJECT_DIR$/tiempos-comp-crec.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tiempos-comp-decrec.csv" afterPath="$PROJECT_DIR$/tiempos-comp-decrec.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tiempos-comp-random.csv" afterPath="$PROJECT_DIR$/tiempos-comp-random.csv" />
     </list>
     <ignored path="algo3-tp1-pintar.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,8 +46,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="332" column="0" selection-start-line="332" selection-start-column="0" selection-end-line="332" selection-end-column="0" />
+            <state relative-caret-position="-190">
+              <caret line="135" column="97" selection-start-line="135" selection-start-column="97" selection-end-line="135" selection-end-column="97" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -52,28 +55,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stl_vector.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/include/c++/5/bits/stl_vector.h">
+      <file leaf-file-name="tiempos-comp-crec.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tiempos-comp-crec.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="1483" column="0" selection-start-line="1483" selection-start-column="0" selection-end-line="1483" selection-end-column="0" />
+            <state relative-caret-position="399">
+              <caret line="19" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tiempos-bu.csv" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tiempos-bu.csv">
+      <file leaf-file-name="tiempos-comp-td-bu-const.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tiempos-comp-td-bu-const.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="880">
-              <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+            <state relative-caret-position="397">
+              <caret line="19" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tiempos-comp-random.csv" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tiempos-comp-random.csv">
+      <file leaf-file-name="tiempos-comp-td-bu-crec.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tiempos-comp-td-bu-crec.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="17" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tiempos-comp-td-bu-decrec.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tiempos-comp-td-bu-decrec.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="18" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tiempos-comp-td-bu-random.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tiempos-comp-td-bu-random.csv">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="441">
               <caret line="21" column="16" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
@@ -82,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tiempos-comp-crec.csv" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tiempos-comp-crec.csv">
+      <file leaf-file-name="tiempos-bu.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tiempos-bu.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="21" column="11" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="271">
+              <caret line="101" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -95,28 +118,18 @@
       <file leaf-file-name="tiempos-comp-decrec.csv" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tiempos-comp-decrec.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="21" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="273">
+              <caret line="13" column="24" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tiempos-bt.csv" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tiempos-bt.csv">
+      <file leaf-file-name="tiempos-comp-random.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tiempos-comp-random.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tiempos-bt+.csv" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tiempos-bt+.csv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="294">
+              <caret line="14" column="24" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -125,18 +138,8 @@
       <file leaf-file-name="tiempos-comp-const.csv" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tiempos-comp-const.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="20" column="20" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tiempos-td.csv" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tiempos-td.csv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            <state relative-caret-position="378">
+              <caret line="18" column="12" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -153,6 +156,8 @@
         <option value="$PROJECT_DIR$/casosTP1/t6" />
         <option value="$PROJECT_DIR$/casosTP1/soluciones" />
         <option value="$PROJECT_DIR$/casosTP1/t17" />
+        <option value="$PROJECT_DIR$/tiempos-bu.csv" />
+        <option value="$PROJECT_DIR$/tiempos-bt.csv" />
         <option value="$PROJECT_DIR$/main.cpp" />
       </list>
     </option>
@@ -234,6 +239,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -453,11 +459,15 @@
       <workItem from="1493930604944" duration="6662000" />
       <workItem from="1493940848528" duration="2770000" />
       <workItem from="1493948847847" duration="13804000" />
+      <workItem from="1494004674402" duration="683000" />
+      <workItem from="1494046548144" duration="4236000" />
+      <workItem from="1494080018778" duration="97000" />
+      <workItem from="1494097260398" duration="1597000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="192173000" />
+    <option name="totallyTimeSpent" value="198786000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -473,7 +483,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3131524" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3131524" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -500,42 +510,11 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="183" />
+      <option name="time" value="184" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/include/c++/5/bits/range_access.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1995">
-          <caret line="95" column="29" selection-start-line="95" selection-start-column="29" selection-end-line="95" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/include/c++/5/bits/stl_list.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21420">
@@ -746,7 +725,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="1" column="577" selection-start-line="1" selection-start-column="577" selection-end-line="1" selection-end-column="577" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -754,7 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="1" column="585" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="585" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -762,7 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="1" column="583" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="583" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -770,7 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="1" column="577" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="577" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -778,7 +753,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -786,31 +760,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example.txt" />
     <entry file="file://$PROJECT_DIR$/tiempos-td.txt" />
-    <entry file="file://$PROJECT_DIR$/tiempos-td.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tiempos-bt.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/include/c++/5/bits/stl_vector.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
+        <state relative-caret-position="31143">
           <caret line="1483" column="0" selection-start-line="1483" selection-start-column="0" selection-end-line="1483" selection-end-column="0" />
           <folding />
         </state>
@@ -824,39 +781,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tiempos-bu.csv">
+    <entry file="file://$PROJECT_DIR$/tiempos-bt.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+        <state relative-caret-position="399">
+          <caret line="19" column="25" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tiempos-td.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tiempos-comp-const.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="20" column="20" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="378">
+          <caret line="18" column="12" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tiempos-comp-crec.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="21" column="11" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="399">
+          <caret line="19" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tiempos-comp-decrec.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="21" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="273">
+          <caret line="13" column="24" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tiempos-comp-random.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="24" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tiempos-bu.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="101" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tiempos-comp-td-bu-const.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="19" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tiempos-comp-td-bu-crec.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tiempos-comp-td-bu-decrec.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="18" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tiempos-comp-td-bu-random.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="21" column="16" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
@@ -866,8 +871,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="332" column="0" selection-start-line="332" selection-start-column="0" selection-end-line="332" selection-end-column="0" />
+        <state relative-caret-position="-190">
+          <caret line="135" column="97" selection-start-line="135" selection-start-column="97" selection-end-line="135" selection-end-column="97" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
